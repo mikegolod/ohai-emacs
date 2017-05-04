@@ -21,6 +21,7 @@
 ;;; Code:
 
 (require 'ohai-package)
+(require 'ohai-lib)
 
 ;; Bind M-n and M-p to navigate to the next/previous errors.
 (global-set-key (kbd "M-n") 'next-error)
@@ -75,6 +76,9 @@
      (set-face-foreground 'flycheck-color-mode-line-warning-face "#ffffff")
      (set-face-background 'flycheck-color-mode-line-info-face nil)
      (set-face-foreground 'flycheck-color-mode-line-info-face nil))))
+
+;; Configure eslint
+(add-hook 'flycheck-mode-hook #'ohai/use-eslint-from-node-modules)
 
 (with-eval-after-load "helm"
   (use-package helm-flycheck

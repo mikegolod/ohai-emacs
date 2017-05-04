@@ -89,6 +89,16 @@ as opposed to empty strings."
   (or (ohai/exec-if-exec "git" "config --get user.email")
       (getenv "EMAIL")))
 
+(defun ohai/use-eslint-from-node-modules ()
+  "Find local project eslint in node_modules"
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
 
 
 (provide 'ohai-lib)
