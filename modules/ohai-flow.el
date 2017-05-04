@@ -26,6 +26,17 @@
 
 (use-package flow-minor-mode
   :config
+  ;; Configure js2 mode
+  (with-eval-after-load 'js2-mode
+    (setq-default
+     js2-mode-indent-ignore-first-tab t
+     js2-strict-inconsistent-return-warning nil
+     js2-global-externs
+     '("module" "require" "__dirname" "process" "console" "JSON" "$" "_")
+     js2-mode-show-parse-errors nil
+     js2-mode-show-strict-warnings nil
+     )
+    )
   (with-eval-after-load 'flycheck
     (flycheck-add-mode 'javascript-flow 'flow-minor-mode)
     (flycheck-add-mode 'javascript-eslint 'flow-minor-mode)
